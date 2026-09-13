@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="1200" height="140" viewBox="0 0 1200 140"
+     role="img" aria-labelledby="title desc">
+  <title id="title">Adapter section header</title>
+  <desc id="desc">Adapter section header with plug/bridge motif</desc>
+
+  <defs>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3fb950"/>
+      <stop offset="100%" stop-color="#2ea043"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="140" fill="#0d1117"/>
+
+  <line x1="0" y1="0" x2="1200" y2="0" stroke="url(#accentGrad)" stroke-width="2"/>
+
+  <g transform="translate(64 28)">
+    <!-- Adapter/bridge icon -->
+    <g transform="translate(0 10)" fill="none" stroke="url(#accentGrad)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+      <!-- Left plug -->
+      <rect x="0" y="14" width="20" height="12" rx="2"/>
+      <rect x="2" y="18" width="4" height="4" rx="1"/>
+      <rect x="14" y="18" width="4" height="4" rx="1"/>
+      <!-- Bridge -->
+      <path d="M20 20 L48 20" stroke-width="2.5"/>
+      <path d="M20 30 L48 30" stroke-width="2.5"/>
+      <!-- Right plug -->
+      <rect x="48" y="14" width="20" height="12" rx="2"/>
+      <rect x="50" y="18" width="4" height="4" rx="1"/>
+      <rect x="62" y="18" width="4" height="4" rx="1"/>
+    </g>
+
+    <text x="56" y="30"
+          font-family="-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif"
+          font-size="36" font-weight="700" fill="#e6edf3">
+      Adapter
+    </text>
+
+    <text x="56" y="72"
+          font-family="-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif"
+          font-size="16" font-weight="400" fill="#8b949e">
+      Drop-in pysbd replacement — same API, better results
+    </text>
+  </g>
+
+  <line x1="64" y1="112" x2="680" y2="112" stroke="url(#accentGrad)" stroke-width="2" stroke-dasharray="8,4"/>
+</svg>

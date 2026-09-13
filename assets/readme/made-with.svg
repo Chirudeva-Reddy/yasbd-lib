@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="420" height="64" viewBox="0 0 420 64"
+     role="img" aria-labelledby="title desc">
+  <title id="title">README made with beautify-github-readme</title>
+  <desc id="desc">Attribution badge for beautify-github-readme skill</desc>
+
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d1117"/>
+      <stop offset="100%" stop-color="#161b22"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3fb950"/>
+      <stop offset="100%" stop-color="#2ea043"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="420" height="64" rx="12" fill="url(#bgGrad)" stroke="#30363d" stroke-width="1"/>
+
+  <g transform="translate(20 0)">
+    <!-- Scissors motif -->
+    <g transform="translate(0 8)" fill="none" stroke="url(#accentGrad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="10" cy="10" r="4"/>
+      <circle cx="22" cy="10" r="4"/>
+      <path d="M16 14 L16 22 M10 14 L16 22 M22 14 L16 22"/>
+    </g>
+
+    <text x="40" y="24"
+          font-family="-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif"
+          font-size="13" font-weight="600" fill="#e6edf3">
+      README MADE WITH
+    </text>
+
+    <text x="40" y="42"
+          font-family="-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif"
+          font-size="13" font-weight="500" fill="#3fb950">
+      beautify-github-readme
+    </text>
+  </g>
+
+  <!-- Arrow -->
+  <g transform="translate(300 16)" fill="none" stroke="#8b949e" stroke-width="2" stroke-linecap="round">
+    <path d="M0 16 L24 16 M16 8 L24 16 L16 24"/>
+  </g>
+</svg>

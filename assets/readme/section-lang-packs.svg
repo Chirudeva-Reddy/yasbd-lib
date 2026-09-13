@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="1200" height="140" viewBox="0 0 1200 140"
+     role="img" aria-labelledby="title desc">
+  <title id="title">Lang Packs section header</title>
+  <desc id="desc">Lang Packs section header with puzzle/extension motif</desc>
+
+  <defs>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#a371f7"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="140" fill="#0d1117"/>
+
+  <line x1="0" y1="0" x2="1200" y2="0" stroke="url(#accentGrad)" stroke-width="2"/>
+
+  <g transform="translate(64 28)">
+    <!-- Puzzle pieces / extension icon -->
+    <g transform="translate(0 8)" fill="url(#accentGrad)">
+      <!-- Base piece -->
+      <path d="M14 28 L28 28 Q32 28 32 32 L32 38 Q32 42 28 42 L14 42 Q10 42 10 38 L10 32 Q10 28 14 28 Z" stroke="#8b5cf6" stroke-width="2" fill="none"/>
+      <path d="M30 28 L44 28 Q48 28 48 32 L48 38 Q48 42 44 42 L30 42 Q26 42 26 38 L26 32 Q26 28 30 28 Z" stroke="#8b5cf6" stroke-width="2" fill="none"/>
+      <!-- Second row -->
+      <path d="M2 38 L16 38 Q20 38 20 42 L20 48 Q20 52 16 52 L2 52 Q-2 52 -2 48 L-2 42 Q-2 38 2 38 Z" stroke="#a371f7" stroke-width="2" fill="none"/>
+      <path d="M18 38 L32 38 Q36 38 36 42 L36 48 Q36 52 32 52 L18 52 Q14 52 14 48 L14 42 Q14 38 18 38 Z" stroke="#a371f7" stroke-width="2" fill="none"/>
+    </g>
+
+    <text x="56" y="30"
+          font-family="-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif"
+          font-size="36" font-weight="700" fill="#e6edf3">
+      Lang Packs
+    </text>
+
+    <text x="56" y="72"
+          font-family="-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif"
+          font-size="16" font-weight="400" fill="#8b949e">
+      Extend to 39+ languages via external packs
+    </text>
+  </g>
+
+  <line x1="64" y1="112" x2="580" y2="112" stroke="url(#accentGrad)" stroke-width="2" stroke-dasharray="8,4"/>
+</svg>
