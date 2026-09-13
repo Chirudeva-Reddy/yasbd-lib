@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg"
-     width="1200" height="140" viewBox="0 0 1200 140"
+     width="1200" height="180" viewBox="0 0 1200 180"
      role="img" aria-labelledby="title desc">
   <title id="title">CLI section header</title>
   <desc id="desc">CLI section header with terminal prompt motif</desc>
@@ -11,13 +11,13 @@
     </linearGradient>
   </defs>
 
-  <rect width="1200" height="140" fill="#0d1117"/>
+  <rect width="1200" height="180" fill="#0d1117"/>
 
   <line x1="0" y1="0" x2="1200" y2="0" stroke="url(#accentGrad)" stroke-width="2"/>
 
   <g transform="translate(64 28)">
     <!-- Terminal prompt icon -->
-    <g transform="translate(0 10)" fill="none" stroke="url(#accentGrad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <g transform="translate(0 14)" fill="none" stroke="url(#accentGrad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
       <rect x="0" y="0" width="42" height="36" rx="6"/>
       <circle cx="10" cy="18" r="4" fill="#ff5f56"/>
       <circle cx="21" cy="18" r="4" fill="#ffbd2e"/>
@@ -27,13 +27,13 @@
 
     <text x="56" y="30"
           font-family="-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif"
-          font-size="36" font-weight="700" fill="#e6edf3">
+          font-size="44" font-weight="700" fill="#e6edf3">
       CLI
     </text>
 
     <text x="56" y="72"
           font-family="-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif"
-          font-size="16" font-weight="400" fill="#8b949e">
+          font-size="19" font-weight="400" fill="#8b949e">
       yasbd segment / detect / clean / langs from terminal
     </text>
   </g>
