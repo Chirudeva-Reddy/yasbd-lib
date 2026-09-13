@@ -1,7 +1,6 @@
-<div align="center">
-  <img src="https://raw.githubusercontent.com/speedyk-005/yasbd-lib/main/yasbd_logo.png" alt="Yasbd-lib Logo" width="500"/>
-  <p><i>"Even a pair of scissors deserves to be smart. Welcome to cybernetic boundary shearing."</i></p>
-</div>
+<p align="center">
+  <img src="./assets/readme/hero.svg" width="100%" alt="yasbd-lib: Smart scissors for text — 98.9% accuracy, F1 99.7%, 8× faster than pysbd, 39 languages">
+</p>
 
 [![Python Version](https://img.shields.io/badge/Python-3.10%20--%203.14-blue)](https://www.python.org/downloads/)
 [![PyPI](https://img.shields.io/pypi/v/yasbd-lib?kill_cache=2)](https://pypi.org/project/yasbd-lib)
@@ -98,6 +97,10 @@ Nope!! It is a two-pass pipeline:
 
 ---
 
+<p align="center">
+  <img src="./assets/readme/section-use-cases.svg" width="100%" alt="Use Cases">
+</p>
+
 ## 💡 Use Cases
 
 Yasbd shines in real-world text processing scenarios where robust sentence boundaries matter, such as:
@@ -113,6 +116,10 @@ Yasbd shines in real-world text processing scenarios where robust sentence bound
 > Want it in action? Browse [`examples/`](examples/).
 
 ---
+
+<p align="center">
+  <img src="./assets/readme/section-languages.svg" width="100%" alt="Supported Languages">
+</p>
 
 ## 🌐 Supported Languages ([API](https://github.com/speedyk-005/yasbd-lib/blob/main/API_REFERENCES.md#yasbdrules))
 
@@ -182,6 +189,10 @@ Candidate abbreviations are collected from all sources, classified by type (`TIT
 
 ---
 
+<p align="center">
+  <img src="./assets/readme/section-benchmarks.svg" width="100%" alt="Benchmarks">
+</p>
+
 ## 📊 Benchmarks
 
 Tested against 7 competitors (pysbd, sentencex, sentsplit, nupunkt, blingfire, sentence-splitter, spaCy-sentencizer) across multiple languages and 7 edge cases: compound abbreviations, CJK quotes, newline wrapping, chat logs, URLs, decimals, and nested punctuation.
@@ -194,9 +205,15 @@ Full results, terminal output, boundary-level (Precision/Recall/F1) metrics, and
 
 **SPOILER**: Yasbd aced 'em all in accuracy while offering balanced speed. On _Adventures of Sherlock Holmes_ (594k chars), yasbd is ~8× faster than pysbd (1.2s vs 9.0s warm) with far fewer false splits.
 
-<img src="https://raw.githubusercontent.com/speedyk-005/yasbd-lib/main/benchmarks/bench.png" alt="SBD Benchmark Performance" width="800"/>
+<p align="center">
+  <img src="./assets/readme/benchmarks-comparison.svg" width="100%" alt="Benchmark Results: Accuracy & Speed Comparison">
+</p>
 
 ---
+
+<p align="center">
+  <img src="./assets/readme/section-installation.svg" width="100%" alt="Installation">
+</p>
 
 ## 📥 Installation
 
@@ -230,6 +247,10 @@ That's awesome. See [**Contributing Guide**](https://github.com/speedyk-005/yasb
 
 
 ---
+
+<p align="center">
+  <img src="./assets/readme/section-usage.svg" width="100%" alt="Usage / API">
+</p>
 
 ## 📟 Usage ([API](https://github.com/speedyk-005/yasbd-lib/blob/main/API_REFERENCES.md#yasbdboundary_detector))
 
@@ -375,6 +396,10 @@ print(res)
 > ```
 > You can also skip empty lines with `skip_empty_lines=True`
 
+<p align="center">
+  <img src="./assets/readme/section-cleaner.svg" width="100%" alt="Cleaner">
+</p>
+
 ### Cleaner ([API](https://github.com/speedyk-005/yasbd-lib/blob/main/API_REFERENCES.md#yasbdutilscleaner))
 
 OCR'd a PDF, parsed a DOCX, or scraped noisy HTML? "StreamCleaner" normalizes text before it reaches the language detector or sentence segmenter.
@@ -445,6 +470,10 @@ Available built-in steps:
 | `fix_ocr_text` | Repairs OCR artifacts, rejoins hyphenated words, removes page markers |
 | `unwrap_htmls` | Removes most HTML markup while preserving visible text. `<b>`, `<i>`, and `<u>` tags are preserved |
 | `normalize_spaces` | Collapses multiple spaces into one |
+
+<p align="center">
+  <img src="./assets/readme/section-cli.svg" width="100%" alt="CLI">
+</p>
 
 ### CLI ([API](https://github.com/speedyk-005/yasbd-lib/blob/main/API_REFERENCES.md#yasbdcli))
 
@@ -522,6 +551,10 @@ When writing to a file with `--destination`, output is JSONL (one JSON object pe
 - **detect**: `{"no": 1, "offset": 6}` or `{"no": 2, "offset": 13}`
 - **detect --relative**: `{"no": 3, "eof": true}` on paragraph boundaries
 
+<p align="center">
+  <img src="./assets/readme/section-adapter.svg" width="100%" alt="Adapter">
+</p>
+
 ### Adapter ([API](https://github.com/speedyk-005/yasbd-lib/blob/main/API_REFERENCES.md#yasbdutilspysbd_adapter))
 
 Migrating from pysbd? Swap the import and keep your pipeline:
@@ -592,6 +625,10 @@ pipe.preserve_quote_and_paren = False
 
 ---
 
+<p align="center">
+  <img src="./assets/readme/section-lang-packs.svg" width="100%" alt="Lang Packs">
+</p>
+
 ## 📦 Lang Packs ([API](https://github.com/speedyk-005/yasbd-lib/blob/main/API_REFERENCES.md#yasbdrules))
 
 Need support for a language that isn't built in? Plug in your own lang pack. A lang pack is simply a Python module that exposes a `PROFILES` list of `Rules` subclasses.
@@ -617,6 +654,10 @@ Want to build a lang pack? Start with the [language template](https://github.com
 
 ---
 
+<p align="center">
+  <img src="./assets/readme/section-integrations.svg" width="100%" alt="Integrations & Ecosystem">
+</p>
+
 ## 🔗 Integrations & Ecosystem
 
 * 🔵 **[spaCy Component](#spacy-component):** Plug `yasbd` straight into any spaCy v3+ pipeline as a fast sentence segmenter.
@@ -635,6 +676,10 @@ See [**CONTRIBUTORS.md**](CONTRIBUTORS.md) for the full list.
 Interested in contributing? See the [**Contributing Guide**](https://github.com/speedyk-005/yasbd-lib/blob/main/CONTRIBUTING.md) to get started!
 
 ---
+
+<p align="center">
+  <a href="https://github.com/oil-oil/beautify-github-readme"><img src="./assets/readme/made-with.svg" width="300" alt="README made with beautify-github-readme"></a>
+</p>
 
 ## 📜 Last note
 
