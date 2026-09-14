@@ -30,43 +30,44 @@ def _trunc_repr(value):  # pragma: no cover
     return reprlib.repr(value)
 
 
-def _validate_type(value, expected_type, name):
-    """Validate a value against an expected type."""
-    # Origin first: `isinstance(hint, type)` is version-flaky for generics
-    # (e.g. `type[X]` passes it on 3.10), so never let them reach that gate.
+def _is_valid(value, expected_type) -> bool:
+    """Recursively check if a value matches an expected type hint."""
     origin = typing.get_origin(expected_type)
+    
+    # 1. Handle Unions
     if origin is UnionType or origin is typing.Union:
-        valid = False
-        for option in typing.get_args(expected_type):
-            try:
-                _validate_type(value, option, name)
-                valid = True
-                break
-            except InvalidInputError:
-                continue
-    elif origin is type:
+        return any(_is_valid(value, option) for option in typing.get_args(expected_type))
+        
+    # 2. Handle type[...] generics
+    if origin is type:
         args = typing.get_args(expected_type)
-        valid = isinstance(value, type) and (not args or issubclass(value, args[0]))
-    elif origin is not None:
-        valid = isinstance(value, origin)
-    elif expected_type is None or expected_type is type(None):
-        valid = value is None
-    elif isinstance(expected_type, type):
-        valid = isinstance(value, expected_type)
-    else:
-        try:
-            valid = isinstance(value, expected_type)
-        except TypeError:
-            valid = True
+        return isinstance(value, type) and (not args or issubclass(value, args[0]))
+        
+    # 3. Handle other generic origins (e.g., list[int])
+    if origin is not None:
+        return isinstance(value, origin)
+        
+    # 4. Handle None explicitly
+    if expected_type is None or expected_type is type(None):
+        return value is None
+        
 
-    if valid:
-        return value
+    # 5. Standard types and safe fallbacks
+    try:
+        return isinstance(value, expected_type)
+    except TypeError:
+        return True
 
-    raise InvalidInputError(
-        f"Invalid type for {name!r}.\n"
-        f"Expected {expected_type}.\n"
-        f"Found: (input={_trunc_repr(value)}, type={type(value).__name__!r})"
-    )
+
+def _validate_type(value, expected_type, name):
+    """Validate a value against an expected type, raising if invalid."""
+    if not _is_valid(value, expected_type):
+        raise InvalidInputError(
+            f"Invalid type for {name!r}.\n"
+            f"Expected {expected_type}.\n"
+            f"Found: (input={_trunc_repr(value)}, type={type(value).__name__!r})"
+        )
+    return value
 
 
 def _validate_call(pos_checks, kw_checks, args, kwargs):
