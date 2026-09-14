@@ -33,24 +33,23 @@ def _trunc_repr(value):  # pragma: no cover
 def _is_valid(value, expected_type) -> bool:
     """Recursively check if a value matches an expected type hint."""
     origin = typing.get_origin(expected_type)
-    
+
     # 1. Handle Unions
     if origin is UnionType or origin is typing.Union:
         return any(_is_valid(value, option) for option in typing.get_args(expected_type))
-        
+
     # 2. Handle type[...] generics
     if origin is type:
         args = typing.get_args(expected_type)
         return isinstance(value, type) and (not args or issubclass(value, args[0]))
-        
+
     # 3. Handle other generic origins (e.g., list[int])
     if origin is not None:
         return isinstance(value, origin)
-        
+
     # 4. Handle None explicitly
     if expected_type is None or expected_type is type(None):
         return value is None
-        
 
     # 5. Standard types and safe fallbacks
     try:

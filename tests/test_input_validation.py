@@ -5,6 +5,7 @@ import pytest
 from yasbd.exceptions import InvalidInputError
 from yasbd.utils.input_validator import validate_input
 
+
 @validate_input
 def identity(value: int) -> int:
     return value
