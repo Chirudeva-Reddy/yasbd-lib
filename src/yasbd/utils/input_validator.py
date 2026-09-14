@@ -23,69 +23,54 @@ F = typing.TypeVar("F", bound=Callable)
 
 def _trunc_repr(value):  # pragma: no cover
     """Truncate values for readable error messages."""
-    # Use reprlib for auto-truncation on non-strings
-    # (faster for lists/dicts/nested)
+    # Use reprlib for auto-truncation on non-strings (faster for lists/dicts/nested)
     if isinstance(value, str) and len(value) >= 120:
         return value[:500] + "..."
     return reprlib.repr(value)
 
 
-def _is_valid(value, expected_type) -> bool:
-    """Recursively check if a value matches an expected type hint."""
+def _compile_validator(expected_type):
+    """Compile a type hint into a fast, specialized validation function once at definition time."""
+    if expected_type is None or expected_type is type(None):
+        return lambda v: v is None
+
     origin = typing.get_origin(expected_type)
 
     # 1. Handle Unions
     if origin is UnionType or origin is typing.Union:
-        return any(_is_valid(value, option) for option in typing.get_args(expected_type))
+        sub_validators = tuple(_compile_validator(arg) for arg in typing.get_args(expected_type))
+        return lambda v: any(fn(v) for fn in sub_validators)
 
     # 2. Handle type[...] generics
     if origin is type:
         args = typing.get_args(expected_type)
-        return isinstance(value, type) and (not args or issubclass(value, args[0]))
+        return lambda v: isinstance(v, type) and (not args or issubclass(v, args[0]))
 
     # 3. Handle other generic origins (e.g., list[int])
     if origin is not None:
-        return isinstance(value, origin)
+        return lambda v: isinstance(v, origin)
 
-    # 4. Handle None explicitly
-    if expected_type is None or expected_type is type(None):
-        return value is None
-
-    # 5. Standard types and safe fallbacks
+    # 4. Standard types and safe fallbacks for exotic types (Literal, etc.)
     try:
-        return isinstance(value, expected_type)
+        isinstance(None, expected_type)
     except TypeError:
-        return True
+        # If it's an exotic type that isinstance rejects, gracefully pass through
+        return lambda v: True
+
+    return lambda v: isinstance(v, expected_type)
 
 
-def _validate_type(value, expected_type, name):
-    """Validate a value against an expected type, raising if invalid."""
-    if not _is_valid(value, expected_type):
-        raise InvalidInputError(
-            f"Invalid type for {name!r}.\n"
-            f"Expected {expected_type}.\n"
-            f"Found: (input={_trunc_repr(value)}, type={type(value).__name__!r})"
-        )
-    return value
-
-
-def _validate_call(pos_checks, kw_checks, args, kwargs):
-    """Validate call arguments in place (validators never transform values)."""
-    # Validate positional-or-keyword arguments
-    for idx, name, expected_type in pos_checks:
-        if idx < len(args):
-            _validate_type(args[idx], expected_type, name=name)
-        elif name in kwargs:
-            _validate_type(kwargs[name], expected_type, name=name)
-
-    # Validate keyword-only arguments
-    for name, expected_type in kw_checks:
-        if name in kwargs:
-            _validate_type(kwargs[name], expected_type, name=name)
+def _raise_validation_error(value, expected_type, name):
+    """Raise the formatted invalid input error."""
+    raise InvalidInputError(
+        f"Invalid type for {name!r}.\n"
+        f"Expected {expected_type}.\n"
+        f"Found: (input={_trunc_repr(value)}, type={type(value).__name__!r})"
+    )
 
 
 def validate_input(fx: F) -> F:
-    """Validate function arguments based on  type hints."""
+    """Validate function arguments based on pre-compiled type hints."""
     hints = typing.get_type_hints(fx)
     ret_type = hints.pop("return", None)
 
@@ -103,24 +88,48 @@ def validate_input(fx: F) -> F:
 
     is_method = pos_names and pos_names[0] in ("self", "cls")
 
+    # Pre-compile validators for positional arguments
     pos_checks = []
-    kw_checks = []
     for i, name in enumerate(pos_names):
         if name not in hints or (i == 0 and is_method):
             continue
-        pos_checks.append((i, name, hints[name]))
+        expected = hints[name]
+        pos_checks.append((i, name, _compile_validator(expected), expected))
 
-    kw_checks = [(name, hints[name]) for name in kwonly_names if name in hints]
+    # Pre-compile validators for keyword-only arguments
+    kw_checks = []
+    for name in kwonly_names:
+        if name in hints:
+            expected = hints[name]
+            kw_checks.append((name, _compile_validator(expected), expected))
+
+    # Pre-compile return type validator
+    ret_validator = _compile_validator(ret_type) if ret_type is not None else None
 
     @wraps(fx)
     def wrapper(*args, **kwargs):
-        _validate_call(pos_checks, kw_checks, args, kwargs)
+        # Validate positional-or-keyword arguments
+        for idx, name, validator, expected in pos_checks:
+            if idx < len(args):
+                if not validator(args[idx]):
+                    _raise_validation_error(args[idx], expected, name)
+            elif name in kwargs:
+                if not validator(kwargs[name]):
+                    _raise_validation_error(kwargs[name], expected, name)
+
+        # Validate keyword-only arguments
+        for name, validator, expected in kw_checks:
+            if name in kwargs:
+                if not validator(kwargs[name]):
+                    _raise_validation_error(kwargs[name], expected, name)
 
         result = fx(*args, **kwargs)
 
-        # Validate return type (skip if unannotated)
-        if ret_type is not None:
-            result = _validate_type(result, ret_type, name=f"Return of {fx.__name__!r}")
+        # Validate return type
+        if ret_validator is not None:
+            if not ret_validator(result):
+                _raise_validation_error(result, ret_type, f"Return of {fx.__name__!r}")
+
         return result
 
     return wrapper
