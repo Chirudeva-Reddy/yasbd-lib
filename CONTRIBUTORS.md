@@ -26,6 +26,7 @@ A massive thank you to the open source community helping make `yasbd` more accur
 | **[@Mayankshrey438](https://github.com/Mayankshrey438)** | Armenian language support & flattened list heuristic |
 | **[@MohammedAnasNathani](https://github.com/MohammedAnasNathani)** | Documentation for built-in language freeze |
 | **[@NataliaPerez08](https://github.com/NataliaPerez08)** | Deduplicate offsets before sorting in `BoundaryDetector._run_hook()` to keep boundaries unique |
+| **[@Nagulanvelu](https://github.com/Nagulanvelu)** | Lithuanian number-first section markers fix |
 | **[@nightcityblade](https://github.com/nightcityblade)** | Inline example abbreviation fixes for Hindi, Lithuanian, Malayalam, and Russian |
 | **[@Rajesh270712](https://github.com/Rajesh270712)** | Base + English rule contributions |
 | **[@revanthajoe](https://github.com/revanthajoe)** | ASR/Transcript Segmentation Example |
@@ -33,6 +34,6 @@ A massive thank you to the open source community helping make `yasbd` more accur
 | **[@sonalisrisivani](https://github.com/sonalisrisivani)** | Unicode newline-inside-sentence detection fix |
 | **[@terminalchai](https://github.com/terminalchai)** | Burmese and Thai reporting words fix |
 | **[@XEDAB](https://github.com/XEDAB)** | Replaced manual adjacent boundary iteration with `itertools.pairwise` |
-| **[@YuEfSaEDU](https://github.com/YuEfSaEDU)** | Afrikaans/Dutch title `Mev.` abbreviation fix |
+| **[@YuEfSaEDU](https://github.com/YuEfSaEDU)** | Afrikaans/Dutch title `Mev.` abbreviation fix; Marathi and Bengali section markers |
 
 Interested in contributing? See the [**Contributing Guide**](CONTRIBUTING.md) to get started!
